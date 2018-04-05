@@ -5,8 +5,80 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OOP8"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Sosi Pisos inc." Height="450" Width="800">
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="25*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <DataGrid Grid.Column="0" AutoGenerateColumns="False" CanUserDeleteRows="True" Name="UsersGrid" ItemsSource="{Binding Users}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Id}" Header="ID" Width="0.75*"/>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Ник" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Password}" Header="Пароль" Width="1.25*"/>
+                    <DataGridTextColumn Binding="{Binding Birthday}" Header="Дата рождения" Width="2.5*"/>
+                    <!--<DataGridTextColumn Binding="{Binding Hobby}" Header="Хобби" Width="1.2*"/>-->
+                    <!--<DataGridTextColumn Binding="{Binding Photo}" Header="Фото" Width="*"/>-->
+                </DataGrid.Columns>
+            </DataGrid>
+            <DockPanel Grid.Column="1">
+                <DockPanel DockPanel.Dock="Bottom" Height="50">
+                    <Button Click="Send_Message" Name="sndMsg" Content="Отправить сообщение"  DockPanel.Dock="Right"/>
+                    <TextBox Name="MsgBox" DockPanel.Dock="Left" Text="Введите сообщение" MinWidth="250"/>
+                </DockPanel>
+                <ScrollViewer Visibility="Visible" DockPanel.Dock="Top">
+                    <ListBox Name="ChatList" ItemsSource="{Binding Path=Messages}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                                    <!--<Image  Source="{Binding Avatar}"/>-->
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Path=Sender}"/>
+                                            <TextBlock Text="{Binding Path=Date}"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding Path=Text}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </DockPanel>
+        </Grid>
+        <Canvas Grid.Row="1">
+            <!--User registration-->
+            <Label Canvas.Top="-5" Canvas.Left="7" Content="Логин" FontSize="11"/>
+            <TextBox Name="NickName" Canvas.Top="14" Canvas.Left="10" Height="17" Width="100"/>
+            <Label Canvas.Top="25" Canvas.Left="7" Content="Пароль" FontSize="11"/>
+            <TextBox Name="Pass" Canvas.Top="44" Canvas.Left="10" Height="17" Width="100"/>
+            <Label Canvas.Top="55" Canvas.Left="7" Content="Дата рождения" FontSize="11"/>
+            <DatePicker Name="Birth" Canvas.Top="74" Canvas.Left="10" MaxWidth="110"/>
+            <Grid Canvas.Top="10" Canvas.Left="120" Width="100" Height="90">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Content="Добавить" Click="Add_Click"/>
+                <Button Grid.Row="1" Content="Удалить" Click="Del_Click"/>
+                <Button Grid.Row="2" Content="Обновить" Click="Load_Click"/>
+            </Grid>
+            <!--Login to send msg-->
+            <Label Canvas.Top="-5" Canvas.Right="7" Content="Логин" FontSize="11"/>
+            <TextBox Name="Login" Canvas.Top="14" Canvas.Right="10" Height="17" Width="100"/>
+            <Label Canvas.Top="25" Canvas.Right="7" Content="Пароль" FontSize="11"/>
+            <TextBox Name="Password" Canvas.Top="40" Canvas.Right="10" Height="17" Width="100"/>
+            <Button Click="Login_Click" Canvas.Top="65" Canvas.Right="10" Content="Login" Width="100"/>
+            <!--Current user-->
+            <Label Content="Текущий пользователь" Canvas.Right="150" Canvas.Top="-5"/>
+            <Label Name="CurUsr" Canvas.Right="150" Canvas.Top="14"/>
+        </Canvas>
     </Grid>
 </Window>
